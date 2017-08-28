@@ -1,0 +1,16 @@
+{
+  "name": "JDocument",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "contentDev": "webpack --config ./WebContent/webpack.config.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "clean-webpack-plugin": "^0.1.16",
+    "webpack": "^3.5.5"
+  }
+}
