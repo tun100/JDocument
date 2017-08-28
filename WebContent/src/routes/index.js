@@ -1,6 +1,7 @@
 import VueRouter from 'vue-router'
 import ContentWrapper from '../page/content/index.vue'
 import ProjectManagePage from '../page/content/projectManage/index.vue'
+import AddProjectPage from '../page/content/addProject/index.vue'
 import SettingWrapper from '../page/setting/index.vue'
 
 const routes = [
@@ -16,6 +17,10 @@ const routes = [
         path: 'projectManage',
         component: ProjectManagePage
       },
+      {
+        path: 'addProject',
+        component: AddProjectPage
+      }
     ]
   }, {
     path: '/setting',
