@@ -8,7 +8,7 @@ module.exports = {
     app: './src/index.js',
     vendors: ['vue', 'vuex', 'element-ui', 'vue-router']
   },
-  devtool: 'inline-source-map',
+  devtool: '#eval-source-map',
   output: {
     filename: '[name].[hash].js',
     path: path.resolve(__dirname, 'dist')
@@ -46,5 +46,10 @@ module.exports = {
     new htmlWebpackPlugin({
       template: './template/index.html'
     })
-  ]
+  ],
+  resolve: {
+    alias: {
+      'vue': 'vue/dist/vue.js'
+    }
+  }
 }

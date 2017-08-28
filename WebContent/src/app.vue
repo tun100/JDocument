@@ -1,14 +1,14 @@
 <template>
-  <div>helloworld</div>
+    <div>
+        <router-view></router-view>
+    </div>
 </template>
 
 <script>
-    export default {
-        data(){
-            return {
-                message: "OK"
-            }
+export default {
+    data() {
+        return {
         }
     }
+}
 </script>
- 
