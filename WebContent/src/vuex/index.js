@@ -4,25 +4,9 @@ const user = {
       isLogin: false,
       username: '',
       lastLoginTime: ''
-    },
-    project: [
-      {
-        name: '智慧专柜'
-      },
-      {
-        name: '智慧e家'
-      },
-      {
-        name: '无人商店'
-      },
-      {
-        name: '智能水机'
-      }
-    ]
+    }
   },
-  mutations: {
-
-  }
+  mutations: {}
 }
 
 const content = {
@@ -31,16 +15,51 @@ const content = {
       topNav: {
         tabIndex: 'projectManage/0'
       }
-    }
+    },
+    project: [
+      {
+        name: '智慧专柜',
+        createTime: "2017年8月29日 11:05:48",
+        data: {
+          indexDoc: "zheshi IndexDoc",
+          list: [
+            
+          ]
+        }
+      }, {
+        name: '智慧e家',
+        createTime: "2017年8月29日 11:05:53",
+        data: {
+          indexDoc: "zheshi IndexDoc",
+          list: []
+        }
+      }, {
+        name: '无人商店',
+        createTime: "2017年8月29日 11:06:00",
+        data: {
+          indexDoc: "zheshi IndexDoc",
+          list: []
+        }
+      }, {
+        name: '智能水机',
+        createTime: "2017年8月29日 11:06:05",
+        data: {
+          indexDoc: "zheshi IndexDoc",
+          list: []
+        }
+      }
+    ]
   },
   mutations: {
-    changeTabIndex(state,{name,index}) {
+    changeTabIndex(state, {name, index}) {
       state.location[name].tabIndex = index
     }
   }
 }
 
 export default {
-  modules: {
-  user,content}
+  modules : {
+    user,
+    content
+  }
 }
