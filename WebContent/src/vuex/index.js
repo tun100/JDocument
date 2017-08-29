@@ -29,7 +29,7 @@ const content = {
   state: {
     location: {
       topNav: {
-        tabIndex: '/projectManage/0'
+        tabIndex: 'projectManage/0'
       }
     }
   },

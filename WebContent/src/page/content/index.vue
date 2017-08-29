@@ -3,23 +3,40 @@
         <el-menu theme="dark" :default-active="tabIndex" class="topNav-wrapper" mode="horizontal" @select="handleSelect">
             <el-submenu index="myOwnProject">
                 <template slot="title">我的项目</template>
-                <router-link :to="{ path: '/projectManage', query: { projectIndex: index }}" v-bind:key="index" v-for="(item,index) in projectList">
-                    <el-menu-item :index="'/projectManage/'+index">
+                <router-link :to="{ path: 'projectManage', query: { projectIndex: index }}" v-bind:key="index" v-for="(item,index) in projectList">
+                    <el-menu-item :index="'projectManage/'+index">
                         {{item.name}}
                     </el-menu-item>
                 </router-link>
             </el-submenu>
-            <router-link to='/addProject'>
-                <el-menu-item index="/addProject">
+            <router-link to='addProject'>
+                <el-menu-item index="addProject">
                     新增项目
                 </el-menu-item>
             </router-link>
-            <el-menu-item index="/commonFiles">
-                <router-link to='/commonFiles'>共享文件</router-link>
+            <el-menu-item index="commonFiles">
+                <router-link to='commonFiles'>共享文件</router-link>
             </el-menu-item>
-            <el-menu-item index="/more">
-                <router-link to='/more'>更多帮助</router-link>
-            </el-menu-item>
+            <router-link to='mail'>
+                <el-menu-item index="mail">
+                    站内信
+                </el-menu-item>
+            </router-link>
+            <el-submenu index="userCenter" class='subMenu-userCenter'>
+                <template slot="title">Jacky Cheung</template>
+                <el-menu-item :index="userCenter">
+                    用户中心
+                </el-menu-item>
+                <el-menu-item :index="userCenter">
+                    文档设置
+                </el-menu-item>
+                <el-menu-item :index="userCenter">
+                    使用教程
+                </el-menu-item>
+                <el-menu-item :index="userCenter">
+                    退出
+                </el-menu-item>
+            </el-submenu>
         </el-menu>
         <router-view></router-view>
     </div>
@@ -56,9 +73,10 @@ export default {
 <style scoped type='scss'>
 .topNav-wrapper {
     padding-left: 30px;
+    padding-right: 30px;
 }
 
-a {
-    text-decoration: none;
+.subMenu-userCenter {
+    float: right;
 }
 </style>
