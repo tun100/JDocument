@@ -3,15 +3,19 @@
     <el-row type='flex' justify='center'>
       <el-col :span="12">
         <el-form ref="form" :model="form" label-width="80px">
-          <el-form-item label="项目名称">
+          <el-form-item label="项目名称" prop='name' :rules="{
+              required: true, message: '项目名称不能为空', trigger: 'blur'
+            }">
             <el-input v-model="form.name"></el-input>
           </el-form-item>
-          <el-form-item label="项目描述">
+          <el-form-item label="项目描述" prop='desc' :rules="{
+            required: true, message: '项目描述不能为空', trigger: 'blur'
+          }">
             <el-input type="textarea" v-model="form.desc"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="onSubmit">立即创建</el-button>
-            <el-button @click='onCancel'>取消</el-button>
+            <el-button type="primary" @click="onSubmit">创建</el-button>
+            <el-button @click="onCancel">重置</el-button>
           </el-form-item>
         </el-form>
       </el-col>
@@ -31,10 +35,17 @@ export default {
   },
   methods: {
     onSubmit(){
-      
+      this.$refs["form"].validate((valid) => {
+          if (valid) {
+              console.log('Submit成功提交');
+          } else {
+              console.log('错误的Submit提交');
+              return false;
+          }
+      });
     },
     onCancel(){
-
+      this.$refs["form"].resetFields();
     }
   }
 }

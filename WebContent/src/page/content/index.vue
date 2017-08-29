@@ -14,9 +14,11 @@
                     新增项目
                 </el-menu-item>
             </router-link>
-            <el-menu-item index="commonFiles">
-                <router-link to='commonFiles'>共享文件</router-link>
-            </el-menu-item>
+            <router-link to='commonFiles'>
+                <el-menu-item index="commonFiles">
+                    共享文件
+                </el-menu-item>
+            </router-link>
             <router-link to='mail'>
                 <el-menu-item index="mail">
                     站内信
@@ -24,16 +26,16 @@
             </router-link>
             <el-submenu index="userCenter" class='subMenu-userCenter'>
                 <template slot="title">Jacky Cheung</template>
-                <el-menu-item :index="userCenter">
+                <el-menu-item index="userCenter">
                     用户中心
                 </el-menu-item>
-                <el-menu-item :index="userCenter">
+                <el-menu-item index="documentSetting">
                     文档设置
                 </el-menu-item>
-                <el-menu-item :index="userCenter">
+                <el-menu-item index="userCourse">
                     使用教程
                 </el-menu-item>
-                <el-menu-item :index="userCenter">
+                <el-menu-item index="exit">
                     退出
                 </el-menu-item>
             </el-submenu>
@@ -55,9 +57,17 @@ export default {
     created() {
         if (this.projectList.length === 0) {
             this.$router.push({
-                path: "/addProject"
+                path: "addProject"
             })
         }
+        var {fullPath} = this.$route;
+        var currentTabIndex = /\/content\/(.*)/.exec(fullPath);
+        console.assert(currentTabIndex !== null, "希望辨别当前的TabIndex，但是当前的URL无法识别")
+        currentTabIndex = currentTabIndex[1]
+        this.$store.commit("changeTabIndex",{
+            index: currentTabIndex,
+            name: "topNav"
+        })
     },
     methods: {
         handleSelect(key, keyPath) {
