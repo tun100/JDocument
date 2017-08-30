@@ -1,11 +1,15 @@
 {
-  "presets": [
-    ["es2015", { "modules": false }]
-  ],
-  "plugins": [["component", [
-    {
-      "libraryName": "element-ui",
-      "styleLibraryName": "theme-default"
-    }
-  ]]]
+  "presets": [["es2015", { "modules": false }]],
+  "plugins": [
+    [
+      "transform-object-rest-spread",
+      "component",
+      [
+        {
+          "libraryName": "element-ui",
+          "styleLibraryName": "theme-default"
+        }
+      ]
+    ]
+  ]
 }

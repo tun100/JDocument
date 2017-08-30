@@ -30,5 +30,8 @@
     "vuex": "^2.3.1",
     "webpack": "^3.5.5",
     "webpack-dev-server": "^2.7.1"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-object-rest-spread": "^6.26.0"
   }
 }

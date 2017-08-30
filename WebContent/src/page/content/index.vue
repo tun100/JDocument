@@ -66,7 +66,7 @@ export default {
         currentTabIndex = currentTabIndex[1]
         // 判断如果是【我的项目】开头的，不需要提交tabIndex
         if (typeof currentTabIndex === "string" && !currentTabIndex.startsWith("projectManage")) {
-            this.$store.commit("changeTabIndex", {
+            this.$store.commit("content/changeTabIndex", {
                 index: currentTabIndex,
                 name: "topNav"
             })
@@ -74,14 +74,14 @@ export default {
     },
     methods: {
         handleSelect(key, keyPath) {
-            this.$store.commit("changeTabIndex", {
+            this.$store.commit("content/changeTabIndex", {
                 index: key,
                 name: "topNav"
             })
             var matchRegex = /projectManage(\d*)$/.exec(key);
             // 判断切换到projectManage的tabIndex，如果是，那么就切换project的下标index
             if (matchRegex !== null) {
-                this.$store.commit("changeProjectIndex", {
+                this.$store.commit("content/changeProjectIndex", {
                     index: parseInt(matchRegex[1])
                 })
             }

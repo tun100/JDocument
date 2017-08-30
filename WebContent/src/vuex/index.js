@@ -1,4 +1,5 @@
 const user = {
+  namespaced: true,
   state: {
     info: {
       isLogin: false,
@@ -10,6 +11,7 @@ const user = {
 };
 
 const content = {
+  namespaced: true,
   state: {
     location: {
       topNav: {
@@ -46,6 +48,14 @@ const content = {
         };
       })
   },
+  getters: {
+    currentProject: state => state.project[state.location.project.projectIndex],
+    currentContent: state =>
+      state.project[state.location.project.projectIndex].content.list[
+        state.location.project.contentIndex
+      ],
+    contentIndex: state => state.location.project.contentIndex
+  },
   mutations: {
     changeTabIndex(state, { name, index }) {
       state.location[name].tabIndex = index;
@@ -53,7 +63,7 @@ const content = {
     changeProjectIndex(state, { index }) {
       state.location.project.projectIndex = index;
     },
-    changeContentIndex(state,{index}){
+    changeContentIndex(state, { index }) {
       state.location.project.contentIndex = index;
     }
   }
