@@ -4,8 +4,8 @@
             <el-menu theme="dark" :default-active="tabIndex" class="topNav-menu" mode="horizontal" @select="handleSelect">
                 <el-submenu index="myOwnProject">
                     <template slot="title">我的项目</template>
-                    <router-link :to="{ path: 'projectManage', query: { projectIndex: index }}" v-bind:key="index" v-for="(item,index) in projectList">
-                        <el-menu-item :index="'projectManage?projectIndex='+index">
+                    <router-link to='projectManage' :key="index" v-for="(item,index) in projectList">
+                        <el-menu-item :index="'projectManage'+index">
                             {{item.name}}
                         </el-menu-item>
                     </router-link>
@@ -47,15 +47,13 @@
 </template>
 
 <script>
+import { mapState,mapMutations } from 'vuex'
+
 export default {
-    computed: {
-        projectList() {
-            return this.$store.state.content.project
-        },
-        tabIndex() {
-            return this.$store.state.content.location.topNav.tabIndex;
-        }
-    },
+    computed: mapState({
+        projectList: state => state.content.project,
+        tabIndex: state => state.content.location.topNav.tabIndex
+    }),
     created() {
         if (this.projectList.length === 0) {
             this.$router.push({
@@ -66,10 +64,13 @@ export default {
         var currentTabIndex = /\/content\/(.*)/.exec(fullPath);
         console.assert(currentTabIndex !== null, "希望辨别当前的TabIndex，但是当前的URL无法识别")
         currentTabIndex = currentTabIndex[1]
-        this.$store.commit("changeTabIndex", {
-            index: currentTabIndex,
-            name: "topNav"
-        })
+        // 判断如果是【我的项目】开头的，不需要提交tabIndex
+        if (typeof currentTabIndex === "string" && !currentTabIndex.startsWith("projectManage")) {
+            this.$store.commit("changeTabIndex", {
+                index: currentTabIndex,
+                name: "topNav"
+            })
+        }
     },
     methods: {
         handleSelect(key, keyPath) {
@@ -77,6 +78,13 @@ export default {
                 index: key,
                 name: "topNav"
             })
+            var matchRegex = /projectManage(\d*)$/.exec(key);
+            // 判断切换到projectManage的tabIndex，如果是，那么就切换project的下标index
+            if (matchRegex !== null) {
+                this.$store.commit("changeProjectIndex", {
+                    index: parseInt(matchRegex[1])
+                })
+            }
         }
     }
 }

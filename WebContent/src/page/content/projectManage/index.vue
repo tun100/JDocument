@@ -2,11 +2,11 @@
   <div>
     <el-row>
       <el-col :span='3'>
-        <LeftSide/>
+        <LeftSide :content-index="contentIndex" :is-total-show="isTotalShow" :content-list="project.content.list" @on-total-show="whenShowTotal" @on-show-content="whenShowContent" />
       </el-col>
       <el-col :span='18' class='content-wrapper'>
-        <BreadCrumb/>
-        {{project}}
+        <BreadCrumb :projectName='project.name' />
+        <TotalShow v-if="isTotalShow" :desc="project.desc" />
       </el-col>
     </el-row>
   </div>
@@ -14,39 +14,38 @@
 <script>
 import LeftSide from './components/leftSide.vue'
 import BreadCrumb from './components/breadCrumb.vue'
+import TotalShow from './components/totalShow.vue'
+import { mapState } from 'vuex';
+
 export default {
-  data(){
+  data() {
     return {
-      projectIndex: 0
-    }    
+      isTotalShow: false
+    }
   },
   components: {
     LeftSide,
-    BreadCrumb
+    BreadCrumb,
+    TotalShow
   },
-  computed: {
-    project() {
-      var currentProject = this.$store.state.content.project[this.$data.projectIndex]
-      console.log(currentProject,this.$data.projectIndex)
-      return currentProject || {}
+  computed: mapState({
+    project: state => state.content.project[state.content.location.project.projectIndex],
+    contentIndex: state => state.content.location.project.contentIndex,
+  }),
+  methods: {
+    whenShowTotal() {
+      this.isTotalShow = true;
+    },
+    whenShowContent(index) {
+      this.isTotalShow = false;
+      this.$store.commit("changeContentIndex", { index })
     }
-  },
-  beforeRouteEnter(to,from,next){
-    var {projectIndex} = to.query;
-    next(vm => {
-      vm.$data.projectIndex = parseInt(projectIndex);
-    });
-  },
-  beforeRouteUpdate(to,from,next){
-    var {projectIndex} = to.query;
-    this.$data.projectIndex = parseInt(projectIndex)
-    next();
   }
 }
 </script>
 
 <style scoped>
-  .content-wrapper{
-    padding: 20px 20px;
-  }
+.content-wrapper {
+  padding: 20px 20px;
+}
 </style>
