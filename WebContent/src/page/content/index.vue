@@ -5,18 +5,18 @@
                 <el-col :span='3' class='topNav-title'>JDocument 接口文档管理</el-col>
                 <el-submenu index="myOwnProject">
                     <template slot="title">我的项目</template>
-                    <router-link to='projectManage' :key="index" v-for="(item,index) in projectList">
+                    <router-link to='/content/projectManage/totalShow' :key="index" v-for="(item,index) in projectList">
                         <el-menu-item :index="'projectManage'+index">
                             {{item.name}}
                         </el-menu-item>
                     </router-link>
                 </el-submenu>
-                <router-link to='addProject'>
+                <router-link to='/content/addProject'>
                     <el-menu-item index="addProject">
                         新增项目
                     </el-menu-item>
                 </router-link>
-                <router-link to='commonFiles'>
+                <router-link to='/content/commonFiles'>
                     <el-menu-item index="commonFiles">
                         共享文件
                     </el-menu-item>

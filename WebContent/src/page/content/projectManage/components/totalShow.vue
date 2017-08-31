@@ -1,11 +1,16 @@
 <template>
     <div>
-        hello{{desc}}       
+        hello{{currentProject.desc}}
     </div>
 </template>
 
 <script>
-    export default {
-        props: ['desc']
+import { mapGetters } from 'vuex'
+export default {
+    computed: {
+        ...mapGetters({
+            currentProject: "content/currentProject",
+        })
     }
+}
 </script>

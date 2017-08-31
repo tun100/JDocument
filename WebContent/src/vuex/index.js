@@ -17,10 +17,12 @@ const content = {
       topNav: {
         tabIndex: "projectManage0"
       },
+      leftNav: {
+        tabIndex: "totalShow"
+      },
       project: {
         projectIndex: 0,
-        contentIndex: 0,
-        isTotalShow: true
+        contentIndex: 0
       }
     },
     project: Array(4)
@@ -28,6 +30,7 @@ const content = {
       .map((a, b) => {
         return {
           name: "智慧专柜" + b,
+          desc: "desc" + b,
           createTime: "2017年8月29日 11:05:48",
           content: {
             desc: "zheshi IndexDoc",
@@ -64,15 +67,14 @@ const content = {
     changeTabIndex(state, { name, index }) {
       state.location[name].tabIndex = index;
     },
+    changeLeftNavIndex(state,{index}){
+      state.location.leftNav.tabIndex = index;
+    },
     changeProjectIndex(state, { index }) {
       state.location.project.projectIndex = index;
-      state.location.project.isTotalShow = true;
     },
     changeContentIndex(state, { index }) {
       state.location.project.contentIndex = index;
-    },
-    setTotalShow(state,{status}){
-      state.location.project.isTotalShow = status;
     }
   }
 };

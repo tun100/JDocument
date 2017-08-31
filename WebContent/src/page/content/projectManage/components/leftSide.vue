@@ -1,44 +1,48 @@
 <template>
   <el-row class="tac">
     <el-col :span="24" class='leftSide-wrapper'>
-      <el-menu :unique-opened="true" :default-active="menuIndex" class="el-menu-vertical-demo" theme='dark'>
+      <el-menu :unique-opened="true" @select="handleToggleLeftNav" :default-active="menuIndex" class="el-menu-vertical-demo" theme='dark'>
         <router-link to='totalShow'>
-          <el-menu-item index="totalShow" @click='handleTotalShow'>
+          <el-menu-item index="totalShow">
             <i class="el-icon-star-on"></i>项目总览</el-menu-item>
         </router-link>
         <router-link to='addContent'>
-          <el-menu-item index="addNewInterface" @click='handleTotalShow'>
-            <i class="el-icon-star-on"></i>新增接口</el-menu-item>
+          <el-menu-item index="addContent">
+            <i class="el-icon-plus"></i>新增接口</el-menu-item>
         </router-link>
-        <el-submenu index="1">
+        <el-submenu index="content">
           <template slot="title">
             <i class="el-icon-message"></i>接口列表</template>
-          <router-link v-for="(item,index) in contentList" :key="index" to="contentShow">
+          <router-link v-for="(item,index) in currentContentList" :key="index" to="contentShow">
             <el-menu-item @click='handleChangeContent(index)' :index="'content'+index">{{item.name}}</el-menu-item>
           </router-link>
         </el-submenu>
       </el-menu>
     </el-col>
   </el-row>
-</template>
+</template> 
 
 <script>
+import const_getters from '../../_const/getters'
 export default {
-  props: ['contentList', 'contentIndex', 'isTotalShow'],
   methods: {
-    handleTotalShow() {
-      this.$emit("on-total-show")
-    },
     handleChangeContent(index) {
-      this.$emit("on-show-content", index)
+      this.$store.commit("content/changeContentIndex", { index })
+    },
+    handleToggleLeftNav(index) {
+      this.$store.commit("content/changeLeftNavIndex", { index })
     }
   },
   computed: {
+    ...const_getters,
     menuIndex() {
-      if (this.$props.isTotalShow === true) {
-        return "totalShow"
-      } else {
-        return "content" + this.$props.contentIndex;
+      var [matchReg] = /(\w*?$)/.exec(this.$route.path)
+      console.assert((matchReg !== null && matchReg !== undefined), "在ProjectManage的LeftNav组件中，匹配URL动态设置index失败，请检查!", this.$route)
+      switch (matchReg) {
+        case "contentShow":
+          return "content" + this.currentContentIndex;
+        default:
+          return matchReg;
       }
     }
   }

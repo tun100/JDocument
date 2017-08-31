@@ -1,11 +1,16 @@
 <template>
     <div>
-        contenShow{{content}}
+        contenShow{{currentContent}}
     </div>
 </template>
 
 <script>
-    export default {
-        props: ['content']
+import { mapState, mapGetters } from 'vuex';
+export default {
+    computed: {
+        ...mapGetters({
+            currentContent: "content/currentContent",
+        })
     }
+}
 </script>
