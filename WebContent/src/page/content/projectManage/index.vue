@@ -3,7 +3,7 @@
     <el-col :span='3' class='leftCol-wrapper'>
       <LeftSide :content-index="currentContentIndex" :content-list="currentContentList" />
     </el-col>
-    <el-col :span='18' class='content-wrapper'>
+    <el-col :span='21' class='content-wrapper'>
       <el-col :span='24'>
         <BreadCrumb />
       </el-col>
@@ -14,10 +14,10 @@
   </el-row>
 </template>
 <script>
-import LeftSide from './components/leftSide.vue'
-import BreadCrumb from './components/breadCrumb.vue'
-import TotalShow from './components/totalShow.vue'
-import ContentShow from './components/contentShow.vue'
+import LeftSide from './leftSide/index.vue'
+import BreadCrumb from './breadCrumb/index.vue'
+import TotalShow from './totalShow/index.vue'
+import ContentShow from './contentShow/index.vue'
 import const_getters from '../_const/getters'
 
 export default {
@@ -44,6 +44,8 @@ export default {
   }
   .content-wrapper {
     padding: 20px 20px;
+    height: 100%;
+    overflow: auto;
   }
 }
 </style>

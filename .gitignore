@@ -2,3 +2,4 @@ node_modules/
 WebContent/node_moduels/
 .idea/
 WebContent/dist/
+test/
