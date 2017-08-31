@@ -19,7 +19,8 @@ const content = {
       },
       project: {
         projectIndex: 0,
-        contentIndex: 0
+        contentIndex: 0,
+        isTotalShow: true
       }
     },
     project: Array(4)
@@ -54,7 +55,10 @@ const content = {
       state.project[state.location.project.projectIndex].content.list[
         state.location.project.contentIndex
       ],
-    contentIndex: state => state.location.project.contentIndex
+    currentContentList: state =>
+      state.project[state.location.project.projectIndex].content.list,
+    currentContentIndex: state => state.location.project.contentIndex,
+    isTotalShow: state => state.location.project.isTotalShow
   },
   mutations: {
     changeTabIndex(state, { name, index }) {
@@ -62,9 +66,13 @@ const content = {
     },
     changeProjectIndex(state, { index }) {
       state.location.project.projectIndex = index;
+      state.location.project.isTotalShow = true;
     },
     changeContentIndex(state, { index }) {
       state.location.project.contentIndex = index;
+    },
+    setTotalShow(state,{status}){
+      state.location.project.isTotalShow = status;
     }
   }
 };

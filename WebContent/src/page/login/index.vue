@@ -47,6 +47,7 @@ export default {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     console.log('Submit成功提交');
+                    this.$router.push("/content/projectManage")
                 } else {
                     console.log('错误的Submit提交');
                     return false;

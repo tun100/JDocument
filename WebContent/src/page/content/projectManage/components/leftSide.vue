@@ -2,12 +2,20 @@
   <el-row class="tac">
     <el-col :span="24" class='leftSide-wrapper'>
       <el-menu :unique-opened="true" :default-active="menuIndex" class="el-menu-vertical-demo" theme='dark'>
-        <el-menu-item index="totalShow" @click='handleTotalShow'>
-          <i class="el-icon-menu"></i>项目总览</el-menu-item>
+        <router-link to='totalShow'>
+          <el-menu-item index="totalShow" @click='handleTotalShow'>
+            <i class="el-icon-star-on"></i>项目总览</el-menu-item>
+        </router-link>
+        <router-link to='addContent'>
+          <el-menu-item index="addNewInterface" @click='handleTotalShow'>
+            <i class="el-icon-star-on"></i>新增接口</el-menu-item>
+        </router-link>
         <el-submenu index="1">
           <template slot="title">
             <i class="el-icon-message"></i>接口列表</template>
-          <el-menu-item @click='handleChangeContent(index)' :index="'content'+index" v-for="(item,index) in contentList" :key="index">{{item.name}}</el-menu-item>
+          <router-link v-for="(item,index) in contentList" :key="index" to="contentShow">
+            <el-menu-item @click='handleChangeContent(index)' :index="'content'+index">{{item.name}}</el-menu-item>
+          </router-link>
         </el-submenu>
       </el-menu>
     </el-col>
@@ -21,8 +29,8 @@ export default {
     handleTotalShow() {
       this.$emit("on-total-show")
     },
-    handleChangeContent(index){
-      this.$emit("on-show-content",index)
+    handleChangeContent(index) {
+      this.$emit("on-show-content", index)
     }
   },
   computed: {
@@ -33,9 +41,6 @@ export default {
         return "content" + this.$props.contentIndex;
       }
     }
-  },
-  created() {
-    console.log(this.$props.contentList)
   }
 }
 </script>

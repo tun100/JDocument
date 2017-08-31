@@ -6,6 +6,8 @@ import SettingWrapper from '../page/setting/index.vue'
 import LoginWrapper from '../page/login/index.vue'
 import RegisterWrapper from '../page/register/index.vue'
 import ForgetPasswordWrapper from '../page/forgetPassword/index.vue'
+import ProjectManageContentPart from '../page/content/projectManage/components/contentShow.vue'
+import ProjectManageTotalShowPart from '../page/content/projectManage/components/totalShow.vue' 
 import C404Page from '../page/error/c404/index.vue'
 
 const routes = [
@@ -19,7 +21,17 @@ const routes = [
     children: [
       {
         path: 'projectManage',
-        component: ProjectManagePage
+        component: ProjectManagePage,
+        children: [
+          {
+            path: "totalShow",
+            component: ProjectManageTotalShowPart
+          },
+          {
+            path: "contentShow",
+            component: ProjectManageContentPart
+          }
+        ]
       },
       {
         path: 'addProject',

@@ -2,6 +2,7 @@
     <div>
         <div class='topNav-wrapper'>
             <el-menu theme="dark" :default-active="tabIndex" class="topNav-menu" mode="horizontal" @select="handleSelect">
+                <el-col :span='3' class='topNav-title'>JDocument 接口文档管理</el-col>
                 <el-submenu index="myOwnProject">
                     <template slot="title">我的项目</template>
                     <router-link to='projectManage' :key="index" v-for="(item,index) in projectList">
@@ -42,12 +43,14 @@
                 </el-submenu>
             </el-menu>
         </div>
-        <router-view></router-view>
+        <div class='content-container'>
+            <router-view></router-view>
+        </div>
     </div>
 </template>
 
 <script>
-import { mapState,mapMutations } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 
 export default {
     computed: mapState({
@@ -90,17 +93,36 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang='scss'>
 .topNav-wrapper {
     background: #324157;
+    .topNav-title {
+        padding-right: 4px;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 60px;
+        background: #465871;
+        box-sizing: content-box;
+        margin-right: 22px;
+        font-size: 16px;
+        transition: all 0.2s;
+        &:hover {
+            background: #3b4d67;
+        }
+    }
 }
 
 .topNav-menu {
-    padding-left: 30px;
     padding-right: 30px;
 }
 
 .subMenu-userCenter {
     float: right;
+}
+
+.content-container {
+    height: calc(100vh - 60px);
 }
 </style>
