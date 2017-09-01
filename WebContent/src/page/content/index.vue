@@ -87,6 +87,9 @@ export default {
                 this.$store.commit("content/changeProjectIndex", {
                     index: parseInt(matchRegex[1])
                 })
+                this.$store.commit("content/changeContentIndex", {
+                    index: 0
+                })
             }
         }
     }

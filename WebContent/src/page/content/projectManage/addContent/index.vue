@@ -5,14 +5,14 @@
         <el-col :span="9">
           <div class='form-title'>总体描述</div>
           <el-form-item label="接口名称" prop='name' :rules="{
-                                                                                  required: true, message: '接口名称不能为空', trigger: 'blur'
-                                                                                 }">
+                                                                                      required: true, message: '接口名称不能为空', trigger: 'blur'
+                                                                                     }">
             <el-input v-model="form.name" placeholder="请输入接口的名称"></el-input>
           </el-form-item>
-          <el-form-item label="接口描述" prop='desc' :rules="{
-                                                                                required: true, message: '接口描述不能为空', trigger: 'blur'
-                                                                              }">
-            <el-input type="textarea" :autosize="{minRows:6}" placeholder="请输入接口的总体描述" v-model="form.desc"></el-input>
+          <el-form-item label="接口描述" prop='plainDesc' :rules="{
+                                                                                    required: true, message: '接口描述不能为空', trigger: 'blur'
+                                                                                  }">
+            <el-input type="textarea" :autosize="{minRows:6}" placeholder="请输入接口的总体描述" v-model="form.plainDesc"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
@@ -20,16 +20,18 @@
         <el-col :span="9">
           <div class='form-title'>全局设置</div>
           <el-form-item label="HTTP方法" prop="global.method" :rules="{
-                                                                                required: true, message: 'HTTP方法不能为空', trigger: 'blur'
-                                                                              }">
+                                                                                    required: true, message: 'HTTP方法不能为空', trigger: 'blur'
+                                                                                  }">
             <el-select filterable v-model="form.global.method" placeholder="请选择HTTP方法名">
               <el-option :label="item" :value="item" :key="index" v-for="(item,index) in CONST.METHOD"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="HTTP版本" prop='global.version' :rules="{
-                                                                                  required: true, message: 'HTTP版本不能为空', trigger: 'blur'
-                                                                                }">
-            <el-input v-model="form.global.version" placeholder="请输入HTTP的版本"></el-input>
+                                                                                      required: true, message: 'HTTP版本不能为空', trigger: 'blur'
+                                                                                    }">
+            <el-select filterable v-model="form.global.version" placeholder="请选择Content-Type">
+              <el-option :label="item" :value="item" :key="index" v-for="(item,index) in CONST.HTTP_VERSION"></el-option>
+            </el-select>
           </el-form-item>
         </el-col>
       </el-row>
@@ -37,20 +39,20 @@
         <el-col :span='9'>
           <div class='form-title'>请求端</div>
           <el-form-item label="请求URL" prop='request.url' :rules="{
-                                                                                  required: true, message: '请求URL不能为空', trigger: 'blur'
-                                                                                }">
+                                                                                      required: true, message: '请求URL不能为空', trigger: 'blur'
+                                                                                    }">
             <el-input v-model="form.request.url" placeholder="请输入请求的URL路径"></el-input>
           </el-form-item>
           <el-form-item label="Content-Type" prop='request.contentType' :rules="{
-                                                                                  required: true, message: 'Content-Type不能为空', trigger: 'blur'
-                                                                                }">
+                                                                                      required: true, message: 'Content-Type不能为空', trigger: 'blur'
+                                                                                    }">
             <el-select filterable v-model="form.request.contentType" placeholder="请选择Content-Type">
               <el-option :label="item" :value="item" :key="index" v-for="(item,index) in CONST.CONTENT_TYPE"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="发送数据示例" prop='request.format' :rules="{
-                                                                                required: true, message: '发送数据示例不能为空', trigger: 'blur'
-                                                                              }">
+          <el-form-item label="发送数据示例" prop='request.exampleData' :rules="{
+                                                                                    required: true, message: '发送数据示例不能为空', trigger: 'blur'
+                                                                                  }">
             <el-input type="textarea" :autosize="{minRows:6}" placeholder="请输入发送数据示例" v-model="form.request.exampleData"></el-input>
           </el-form-item>
         </el-col>
@@ -59,22 +61,17 @@
         <el-col :span='9'>
           <div class='form-title'>响应端</div>
           <el-form-item label="Content-Type" prop='response.contentType' :rules="{
-                                                                                  required: true, message: 'Content-Type不能为空', trigger: 'blur'
-                                                                                }">
+                                                                                      required: true, message: 'Content-Type不能为空', trigger: 'blur'
+                                                                                    }">
             <el-select filterable v-model="form.response.contentType" placeholder="请选择Content-Type">
               <el-option :label="item" :value="item" :key="index" v-for="(item,index) in CONST.CONTENT_TYPE"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="响应数据示例" prop='response.format' :rules="{
-                                                                                required: true, message: '响应数据示例不能为空', trigger: 'blur'
-                                                                              }">
+          <el-form-item label="响应数据示例" prop='response.exampleData' :rules="{
+                                                                                    required: true, message: '响应数据示例不能为空', trigger: 'blur'
+                                                                                  }">
             <el-input type="textarea" :autosize="{minRows:6}" placeholder="请输入发送数据示例" v-model="form.response.exampleData"></el-input>
           </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row type='flex' justify='space-around'>
-        <el-col :span='9'>
-          <div class='form-title'>备注</div>
         </el-col>
       </el-row>
       <el-row type="flex" justify="space-around">
@@ -93,22 +90,19 @@
 import ContentTypeConst from '../../_const/contentType'
 
 export default {
-  components: {
-    MavonEditor: mavonEditor
-  },
   data() {
     return {
       CONST: {
         METHOD: ["GET", "POST", "OPTION", "HEAD", "PUT", "DELETE", "CONNECT", "TRACE"],
-        CONTENT_TYPE: ContentTypeConst
+        CONTENT_TYPE: ContentTypeConst,
+        HTTP_VERSION: ["1.0", "1.1", "2.0"]
       },
       form: {
         name: '',
-        desc: '',
-        bookmark: "",
+        plainDesc: '',
         global: {
           method: "GET",
-          version: "1.0"
+          version: "1.1"
         },
         request: {
           url: "",

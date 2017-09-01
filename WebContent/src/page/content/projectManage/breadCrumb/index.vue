@@ -17,6 +17,10 @@ export default {
             console.assert((matchReg !== null && matchReg !== undefined), "在ProjectManage页面中，匹配URL动态设置index失败，请检查!", this.$route)
             switch (matchReg) {
                 case "contentShow":
+                    //如果此处获取不到currentContent，则说明当前的content的长度为0
+                    if (this.currentContent === undefined) {
+                        return "暂无接口"
+                    }
                     return this.currentContent.name;
                 case "addContent":
                     return "新增接口"

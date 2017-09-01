@@ -4,7 +4,7 @@
       <LeftSide :content-index="currentContentIndex" :content-list="currentContentList" />
     </el-col>
     <el-col :span='21' class='content-wrapper'>
-      <el-col :span='24'>
+      <el-col :span='24' class='breadCrumb-wrapper'>
         <BreadCrumb />
       </el-col>
       <el-col :span='24'>
@@ -46,6 +46,9 @@ export default {
     padding: 20px 20px;
     height: 100%;
     overflow: auto;
+  }
+  .breadCrumb-wrapper {
+    margin-bottom: 15px;
   }
 }
 </style>
