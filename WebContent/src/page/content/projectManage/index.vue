@@ -8,7 +8,9 @@
         <BreadCrumb />
       </el-col>
       <el-col :span='24'>
-        <router-view></router-view>
+        <transition name="el-fade-in-linear">
+          <router-view></router-view>
+        </transition>
       </el-col>
     </el-col>
   </el-row>
@@ -46,6 +48,7 @@ export default {
     padding: 20px 20px;
     height: 100%;
     overflow: auto;
+    overflow-x: hidden;
   }
   .breadCrumb-wrapper {
     margin-bottom: 15px;

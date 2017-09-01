@@ -37,9 +37,11 @@
                     <el-menu-item index="userCourse">
                         使用教程
                     </el-menu-item>
-                    <el-menu-item index="exit">
-                        退出
-                    </el-menu-item>
+                    <router-link to="/">
+                        <el-menu-item index="exit">
+                            退出
+                        </el-menu-item>
+                    </router-link>
                 </el-submenu>
             </el-menu>
         </div>

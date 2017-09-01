@@ -20,7 +20,7 @@ const content = {
           name: "智慧专柜" + b,
           desc: "desc" + b,
           createTime: "2017年8月29日 11:05:48",
-          content: Array(6)
+          content: Array(20)
             .fill(10)
             .map((item, index) => {
               return {

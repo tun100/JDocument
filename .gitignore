@@ -1,5 +1,7 @@
 node_modules/
-WebContent/node_moduels/
+WebContent/node_modules/
 .idea/
 WebContent/dist/
 test/
+WebServer/dist/
+WebServer/node_modules/

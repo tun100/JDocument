@@ -3,5 +3,9 @@ export default [
   {
     path: "/c404",
     component: C404Page
+  },
+  {
+    path: "/",
+    redirect: "/c404"
   }
 ];
