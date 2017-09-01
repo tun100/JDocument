@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "supervisor ./server.js",
-    "start": "node ./server.js"
+    "start": "node ./server.js",
+    "jest": "jest"
   },
   "keywords": [],
   "author": "",
@@ -14,6 +15,8 @@
     "bunyan": "^1.8.12",
     "express": "^4.15.4",
     "express-bunyan-logger": "^1.3.2",
+    "jest": "^20.0.4",
+    "mongoose": "^4.11.9",
     "morgan": "^1.8.2"
   }
 }
