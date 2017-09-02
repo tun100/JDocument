@@ -1,7 +1,9 @@
 var express = require("express");
 var app = express();
 var http = require("http");
-var rootRouter = require("./router/");
+/**
+ * 先把工具类和配置文件复制给global
+ */
 var AppUtil = require("./util/");
 var ConfigInfo = require('./config/')
 global.AppUtil = AppUtil;
@@ -9,6 +11,7 @@ global.ConfigInfo = ConfigInfo
 
 AppUtil.logger.server.info("服务器正在准备工作中");
 
+var rootRouter = require("./router/");
 app.use(rootRouter);
 
 var server = http.createServer(app);
