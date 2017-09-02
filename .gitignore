@@ -5,3 +5,4 @@ WebContent/dist/
 test/
 WebServer/dist/
 WebServer/node_modules/
+WebServer/logger/

@@ -1,6 +1,6 @@
-var mongoose = require("mongoose");
+var mongoose = require("../../database/user/");
 var AppSchema = require("../../schema/");
 
-var UserModel = mongoose.model("UserModel", AppSchema.user);
+var UserModel = mongoose.model("User", AppSchema.user);
 
 module.exports = UserModel;

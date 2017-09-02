@@ -11,14 +11,15 @@ var httpLogPath = path.join(
   "http",
   currentDay + ".log"
 );
-
-if (process.env.NODE_ENV !== "production") {
+if (global.ConfigInfo.logger.isNeedConsoleLog === true) {
   router.use(morgan("common"));
 }
-router.use(
-  morgan("common", {
-    stream: fs.createWriteStream(httpLogPath, { flags: "a" })
-  })
-);
+if (global.ConfigInfo.logger.isNeedFileLog === true) {
+  router.use(
+    morgan("common", {
+      stream: fs.createWriteStream(httpLogPath, { flags: "a" })
+    })
+  );
+}
 
 module.exports = router;
