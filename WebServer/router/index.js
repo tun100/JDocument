@@ -2,7 +2,6 @@ var express = require('express')
 var router = express.Router();
 var apiRouter =  require('./api/')
 var loggerRouter = require('./logger/')
-var registerRouter = require('./register/')
 var bodyParser = require('body-parser')
 var cookieParser = require('cookie-parser')
 var expressSession = require('express-session')
@@ -12,7 +11,6 @@ router.use(expressSession({
 }));
 router.use(cookieParser())
 router.use(bodyParser())
-router.use(registerRouter)
 router.use(loggerRouter);
 router.use('/api',apiRouter);
 
