@@ -69,7 +69,7 @@ router
             `Project信息：账户：${username} 密码：${password} 成功获取用户信息，下面开始查询ProjectList的所有内容`
           );
           // 如果查询到的结果为空，那么说明用户并不存在
-          if (_.isEmpty(e)) {
+          if (_.isEmpty(e) || _.isUndefined(e)) {
             res.send({
               status: "fail",
               info: {
@@ -99,6 +99,7 @@ router
               });
               return;
             } else {
+              // 如果这是个新项目，那么就调到下一个Promise
               resolve();
             }
           }
@@ -106,7 +107,9 @@ router
         .catch(fail => {
           // 此处请求mongodb出错异常
           ServerLogger.error(
-            `Project信息：账户：${username} 密码：${password} 获取失败，请重试`
+            `Project信息：账户：${username} 密码：${password} 获取失败，原因:${JSON.stringify(
+              fail
+            )}`
           );
           res.send({
             status: "fail",
@@ -126,9 +129,60 @@ router
       var newProject = new ProjectModel(project);
       newProject
         .addProject()
-        .then(e => {
-          // 获取数据库信息成功
-          res.send(e);
+        .then(({ _id, name }) => {
+          typeof _id;
+          // 获取数据库信息成功，接下来添加projectList
+          UserModel.update(
+            {
+              username: "libai"
+            },
+            {
+              $push: {
+                projectList: {
+                  _id,
+                  name
+                }
+              }
+            }
+          )
+            .then(e => {
+              // 如果操作记录为0，那么就说明新增失败
+              if (e.ok === 0) {
+                ServerLogger.info(
+                  `Project信息： 新增项目失败（ok 为0）！项目ID：${_id},项目名称:${name}`
+                );
+                res.send({
+                  status: "fail",
+                  info: {
+                    message: "新增项目失败，未能成功添加"
+                  }
+                });
+                return;
+              }
+              // 新增项目成功！
+              ServerLogger.info(`Project信息： 新增项目成功！项目ID：${_id},项目名称:${name}`);
+              res.send({
+                status: "success",
+                info: {
+                  message: "新增项目成功"
+                }
+              });
+            })
+            .catch(fail => {
+              // 数据库不稳定，出现异常
+              ServerLogger.error(
+                `Project信息： 新增项目失败！项目ID：${_id},项目名称:${name},失败原因:${JSON.stringify(
+                  fail
+                )}`
+              );
+              res.send({
+                status: "fail",
+                info: {
+                  message: "服务器不稳定，请重试"
+                }
+              });
+            });
+          // res.send(e);
         })
         .catch(e => {
           //获取数据库信息失败

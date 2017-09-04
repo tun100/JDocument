@@ -4,7 +4,13 @@ var UserSchema = mongoose.Schema({
   password: String,
   lastLoginTime: Date,
   createTime: Date,
-  userType: String // admin,normal
+  userType: String, // admin,normal
+  projectList: [
+    {
+      _id: Object,
+      name: String
+    }
+  ]
 });
 
 module.exports = UserSchema;
