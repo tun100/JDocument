@@ -5,6 +5,7 @@ var ServerLogger = global.AppUtil.logger.server;
 
 router
   .get("/", (req, res, next) => {
+    // 获取当前页面是否有登录
     var { userInfo } = req.session;
     var { hasLogin } = userInfo;
     res.send({
@@ -12,6 +13,7 @@ router
     });
   })
   .post("/", (req, res, next) => {
+    // 登录操作
     var { username, password } = req.body;
     if (username === undefined || password === undefined) {
       res.send({
@@ -22,10 +24,12 @@ router
       });
       return;
     }
+    // 将提交的登录信息变成字符串
     username = "" + username;
     password = "" + password;
     UserModel.find({ username, password })
       .then(e => {
+        // 成功查询数据库信息I
         if (e.length === 0) {
           res.send({
             status: "fail",
@@ -36,6 +40,7 @@ router
           ServerLogger.warn(`登录请求：账户：${username} 密码：${password} 尝试登陆，但是登录失败`);
           return;
         }
+        // 登录成功，设置lastLoginTime
         ServerLogger.warn(`登录请求：账户：${username} 密码：${password} 登录成功`);
         var loginTime = new Date();
         UserModel.update(
@@ -50,6 +55,7 @@ router
           }
         )
           .then(e => {
+            // 设置lastLoginTime成功
             ServerLogger.info(
               `登录请求：账户：${username} 密码：${password} 成功更新数据库用户字段lastLoginTime`
             );
@@ -66,6 +72,7 @@ router
             });
           })
           .catch(fail => {
+            // 设置lastLoginTime失败
             ServerLogger.info(
               `登录请求：账户：${username} 密码：${password} 未能更新数据库用户字段lastLoginTime`
             );
@@ -73,6 +80,7 @@ router
           });
       })
       .catch(fail => {
+        // 查询用户登录信息，在查询数据库时失败
         ServerLogger.error(
           `服务器在处理/user/valid请求过程中 查询数据库时产生错误。用户名：${username}，密码：${password}，错误原因为 ${JSON.stringify(
             fail

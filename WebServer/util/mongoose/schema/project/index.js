@@ -56,4 +56,5 @@ Schema.methods.addProject = function(project) {
       });
   });
 };
+
 module.exports = Schema;

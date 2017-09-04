@@ -4,55 +4,64 @@ ConfigInfo.logger.isNeedFileLog = false;
 global.ConfigInfo = ConfigInfo;
 global.AppUtil = AppUtil;
 
-var model = {
-  name: "Project Name",
-  desc: "Project Desc",
-  createTime: new Date(),
-  content: [
-    {
-      name: "content name",
-      plainDesc: "content Plain desc",
-      createTime: new Date(),
-      global: {
-        method: "GET",
-        version: "1.1"
-      },
-      request: {
-        url: "http://baidu.com",
-        exampleData: "testData",
-        contentType: "raw"
-      },
-      response: {
-        exampleData: "testData",
-        contentType: "raw"
-      }
-    },
-    {
-      name: "content name",
-      plainDesc: "content Plain desc",
-      createTime: new Date(),
-      global: {
-        method: "GET",
-        version: "1.1"
-      },
-      request: {
-        url: "http://baidu.com",
-        exampleData: "testData",
-        contentType: "raw"
-      },
-      response: {
-        exampleData: "testData",
-        contentType: "raw"
-      }
-    }
-  ]
-};
+new Promise((resolve,reject)=>{
+  throw new Error("no")
+  resolve("tst")
+}).then(e=>{
+  console.log(e);
+}).catch(fail=>{
+  console.log(fail);
+})
 
-var ProjectModel = AppUtil.db.model.project;
-var newProject = new ProjectModel(model);
-newProject.addProject().then(e=>{
-    console.log(e);
-});
+// var model = {
+//   name: "Project Name",
+//   desc: "Project Desc",
+//   createTime: new Date(),
+//   content: [
+//     {
+//       name: "content name",
+//       plainDesc: "content Plain desc",
+//       createTime: new Date(),
+//       global: {
+//         method: "GET",
+//         version: "1.1"
+//       },
+//       request: {
+//         url: "http://baidu.com",
+//         exampleData: "testData",
+//         contentType: "raw"
+//       },
+//       response: {
+//         exampleData: "testData",
+//         contentType: "raw"
+//       }
+//     },
+//     {
+//       name: "content name",
+//       plainDesc: "content Plain desc",
+//       createTime: new Date(),
+//       global: {
+//         method: "GET",
+//         version: "1.1"
+//       },
+//       request: {
+//         url: "http://baidu.com",
+//         exampleData: "testData",
+//         contentType: "raw"
+//       },
+//       response: {
+//         exampleData: "testData",
+//         contentType: "raw"
+//       }
+//     }
+//   ]
+// };
+
+// var ProjectModel = AppUtil.db.model.project;
+// var newProject = new ProjectModel(model);
+// newProject.addProject().then(e=>{
+//     console.log(e);
+// });
 
 // var UserModel = AppUtil.db.model.user;
 
